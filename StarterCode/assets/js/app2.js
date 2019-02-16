@@ -219,29 +219,24 @@ d3.csv("./assets/data/data.csv", function(err, censusData) {
     .call(leftAxis)
 
   // append initial circles
-  var circlesGroup = chartGroup.selectAll("circle")
-    .data(censusData)
-    .enter()
+  var datagroup = chartGroup.selectAll("circle").data(censusData).enter()
+  var circlesGroup = datagroup
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("r", 11)
+    .attr("r", 12)
     .attr("fill", "lightblue")
     .attr("opacity", ".9");
 
   // check 
-  for(var i=0; i<censusData.length; i++) {
-    console.log(`${i}: ${censusData[i].abbr}`);
-  }
- 
+  console.log(censusData)
+  
   // append initial circle text
-  var circleTextGroup = chartGroup.selectAll("text")
-    .data(censusData)
-    .enter()
+  var circleTextGroup = datagroup
     .append("text")
-    .attr("x", d => xLinearScale(d[chosenXAxis])-6.5)
-    .attr("y", d => yLinearScale(d[chosenYAxis])+2)
-    .attr("font-size", "9.5")
+    .attr("x", d => xLinearScale(d[chosenXAxis]) - 8)
+    .attr("y", d => yLinearScale(d[chosenYAxis]) + 2.4)
+    .attr("font-size", "11.5")
     .attr("font-weight", "bold")
     .attr("fill", "white")
     .text(d => {return d.abbr})
@@ -310,6 +305,8 @@ d3.csv("./assets/data/data.csv", function(err, censusData) {
 //     .text("Lacks Healthcare");
 
   // updateToolTip function above csv import
+  //var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+  var circleTextGroup = updateToolTip(chosenXAxis, chosenYAxis, circleTextGroup);
   var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
   
 
